@@ -2,22 +2,58 @@ import time, json, datetime
 
 TODAY = datetime.date.today()
 FILE = "timer_data.json"
-data = json.load(open(FILE))
+DETAIL = "detail_data.json"
+data_timer = json.load(open(FILE))
+data_detail = json.load(open(DETAIL))
 
-input("press enter to start")
+ifEnd = False
+ifPause = False
+
+focusTime = []
+
+input("press return to start: ")
 start = time.time()
-input("press again to end")
-end = time.time()
-duration = end - start
+
+while ifEnd == False:
+    a = input("pause to pause, resume to resume: ")
+    if a == "pause":
+        end = time.time()
+        duration = round((end - start) , 1)
+        focusTime.append(duration)
+        ifPause = True
+    elif a == "resume" and ifPause == True:
+        start = time.time()
+        ifPause = False 
+    elif a == "":
+        if ifPause:
+            ifEnd = True
+            break
+        else:
+            end = time.time()
+            duration = round((end - start) , 1)
+            focusTime.append(duration)
+            ifEnd = True
+            break
+
 # print(f"{duration:.1f} seconds.")
 
-data.append(
+data_timer.append(
     {"date": str(TODAY),
-    "duration_sec": round(duration, 1)}
+    "duration_sec": round(sum(focusTime), 1)}
+    )
+
+data_detail.append(
+    {"date": str(TODAY),
+    "duration_details": focusTime}
     )
 
 with open(FILE, "w") as f:
-    json.dump(data, f)
+    json.dump(data_timer, f)
+
+with open(DETAIL, "w") as f:
+    json.dump(data_detail, f)
 
 
-# print(data)
+
+
+
