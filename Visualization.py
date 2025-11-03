@@ -68,8 +68,16 @@ def graph():
     x = [a[0] for a in day_hour]
     y = [a[1] for a in day_hour]
 
-    plt.figure(figsize=(9, 4))
+    plt.figure(figsize=(15, 6))
+    plt.subplot(1, 2, 1)
     plt.plot(x, y, marker="o", color="red")
+    plt.title("Daily Study Time")
+    plt.xlabel("Date")
+    plt.ylabel("Hours Studied")
+    plt.xticks(rotation=45)
+
+    plt.subplot(1, 2, 2)
+    plt.bar(x, y)
     plt.title("Daily Study Time")
     plt.xlabel("Date")
     plt.ylabel("Hours Studied")
