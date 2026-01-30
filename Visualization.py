@@ -68,20 +68,30 @@ def graph():
     x = [a[0] for a in day_hour]
     y = [a[1] for a in day_hour]
 
+    avg = []
+    for i in range(len(y)):
+        avg.append(sum(y[:i+1]) / (i+1))
+
     plt.figure(figsize=(15, 6))
+
+    # line graph + rolling average
     plt.subplot(1, 2, 1)
-    plt.plot(x, y, marker="o", color="red")
+    plt.plot(x, y, marker="o", color="red", label="Daily Hours")
+    plt.plot(x, avg, label="Rolling Avg")
     plt.title("Daily Study Time")
     plt.xlabel("Date")
     plt.ylabel("Hours Studied")
     plt.xticks(rotation=45)
+    plt.legend()
 
+    #bar graph
     plt.subplot(1, 2, 2)
     plt.bar(x, y)
     plt.title("Daily Study Time")
     plt.xlabel("Date")
     plt.ylabel("Hours Studied")
     plt.xticks(rotation=45)
+
     plt.tight_layout()
     plt.show()
     
@@ -93,4 +103,3 @@ if __name__ == "__main__":
         graph()
     else:
         graph()
-
