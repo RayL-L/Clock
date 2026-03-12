@@ -5,8 +5,6 @@ class StudyTimer:
         self.FILE = file_path
         self.DETAIL = detail_path
 
-
-
     def run(self) -> None:
         TODAY = datetime.date.today()
         FILE = self.FILE
@@ -19,6 +17,8 @@ class StudyTimer:
         ifPause = False
 
         focusTime = []
+
+        subject = input("What are you studying today? ")
 
         input("press return to start: ")
         start = time.time()
@@ -44,16 +44,20 @@ class StudyTimer:
                     ifEnd = True
                     break
 
-        # print(f"{duration:.1f} seconds.")
-
         data_timer.append(
-            {"date": str(TODAY),
-             "duration_sec": round(sum(focusTime), 1)}
+            {
+                "date": str(TODAY),
+                "subject": subject,
+                "duration_sec": round(sum(focusTime), 1)
+            }
         )
 
         data_detail.append(
-            {"date": str(TODAY),
-             "duration_details": focusTime}
+            {
+                "date": str(TODAY),
+                "subject": subject,
+                "duration_details": focusTime
+            }
         )
 
         with open(FILE, "w") as f:
